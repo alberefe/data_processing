@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    build: ./web
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./web:/app
+    depends_on:
+      - processor
+    environment:
+      - PROCESSOR_URL=http://processor:8080
+
+  processor:
+    build: ./processor
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./processor:/app
+      - ./data:/data
+
+volumes:
+  data:
